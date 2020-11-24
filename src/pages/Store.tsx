@@ -1,28 +1,28 @@
 import React from 'react';
 import styled from "styled-components";
-import { IProduct, Product } from '../components/Product';
-import { useProductsContext } from '../components/ProductsContex';
+
+import { IProduct } from '../components/Product';
+import { useStoreContext } from '../components/ProductsContex';
+import {StoreItem} from '../components/StoreItem';
 
 export default  function Store() {
-  const { products} = useProductsContext();
+  const { products} = useStoreContext();
 
   return (
     <Root>
       {products.map((product: IProduct) => 
-        <Product key={product.id} {...product} ></Product>
+      <StoreItem item={product}></StoreItem>
       )
       }
-
     </Root>
   );
 }
 
 
-
-
 const Root = styled.div`
   display: flex;
-  flex: 1;
-  height: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  height: 97vh;
 `;
-
