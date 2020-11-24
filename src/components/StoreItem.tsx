@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
 import { AddToCart } from '../components/AddToCart';
-import { IProduct, Product } from '../components/Product';;
-
-
-
+import { IProduct, Product } from '../components/Product';
 export interface IStoreItemProps {
     item: IProduct;
   }
