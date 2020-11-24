@@ -11,7 +11,7 @@ export default  function Store() {
   return (
     <Root>
       {products.map((product: IProduct) => 
-      <StoreItem item={product}></StoreItem>
+        <StoreItem key={product.id} item={product}></StoreItem>
       )
       }
     </Root>

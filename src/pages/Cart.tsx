@@ -10,9 +10,7 @@ export default  function Cart() {
   return (
     <Root>
       {addedProducts.map((product: IProduct) => 
-      <div>
         <CartItem key={product.id} item={product} ></CartItem>
-      </div>
       )
       }
       <Button onClick={clearCart}>CHECKOUT</Button>

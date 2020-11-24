@@ -6,7 +6,7 @@ export interface IProduct {
     name: string;
     image: string;
     price: number;
-    
+    quantity: number;
 }
 
 export const Product: React.FC<IProduct> = ( data:IProduct) => {
