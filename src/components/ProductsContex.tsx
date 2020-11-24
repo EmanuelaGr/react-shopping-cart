@@ -7,8 +7,7 @@ export interface IStoreContext {
   addedProducts: IProduct[];
   addToCart: (item: IProduct) => void;
   deleteFromCart: (item: IProduct) => void;
-  increaseQuantity: (item: IProduct, count: number) => void;
-  decreaseQuantity: (item: IProduct, count: number) => void;
+  saveQuantity: (item: IProduct, count: number) => void;
   clearCart: () => void;
 }
   
@@ -30,7 +29,6 @@ export const StoreContextProvider: React.FC = ({ children }) => {
             item.quantity++;
             addedProducts.push(item);
         }
-        console.log("item", item, addedProducts);
     
         localStorage.setItem('cart', JSON.stringify(addedProducts));
       }, [addedProducts]);
@@ -48,28 +46,24 @@ export const StoreContextProvider: React.FC = ({ children }) => {
         localStorage.setItem('cart', JSON.stringify([]));
       }, [addedProducts]);
 
-      const decreaseQuantity = React.useCallback((item: IProduct, count:number) => {
+      const saveQuantity = React.useCallback((item: IProduct, count:number) => {
         const findItem = addedProducts.find((prod: IProduct) => prod.id === item.id);
-        console.log("decrease",findItem)
-        if (findItem)
-            if (findItem.quantity > 1 )
-            findItem.quantity --;
-            else
-                {
-                    const filteredArray = addedProducts.filter((val: IProduct) => val.id !== item.id);
-                    setAddedProducts(filteredArray);
-                }
-      }, [addedProducts]);
-
-      const increaseQuantity = React.useCallback((item: IProduct, count: number) => {
-        const findItem = addedProducts.find((prod: IProduct) => prod.id === item.id);
-        console.log("increaseQuantity",findItem)
-
-        findItem.quantity = count;
+        if (findItem && count >=0) {
+          findItem.quantity = count;
+          
+          if (count === 0 )
+          {
+            const filteredArray = addedProducts.filter((val: IProduct) => val.id !== item.id);
+            setAddedProducts(filteredArray);
+            localStorage.setItem('cart', JSON.stringify(filteredArray));
+          }
+         else
+            localStorage.setItem('cart', JSON.stringify(addedProducts));
+        }
       }, [addedProducts]);
 
     return ( 
-        <StoreContext.Provider value={{products, increaseQuantity,decreaseQuantity, addToCart,deleteFromCart,addedProducts,clearCart}} >
+        <StoreContext.Provider value={{products, saveQuantity, addToCart,deleteFromCart,addedProducts,clearCart}} >
             { children }
         </StoreContext.Provider>
      );
