@@ -31,7 +31,7 @@ const CartItemContent = styled.div`
     display: flex;
     flex-direction: column;
     width: 250px;
-    height: 250px;
+    height: 350px;
     border-radius: 10px;
     background-color: white;
     margin: 20px;
@@ -43,7 +43,7 @@ const DeleteButton = styled.button`
     display: flex;    
     heigh: 60px;
     width: 150px;
-    margin: 50px;
+    margin: 20px;
     align-self: center;
     justify-content: center;
 `;

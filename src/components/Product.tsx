@@ -21,6 +21,7 @@ export const Product: React.FC<IProduct> = ( data:IProduct) => {
 
 const Root = styled.div`
     display: flex;
+    height: 200px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
