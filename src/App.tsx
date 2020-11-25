@@ -40,8 +40,7 @@ export default function App() {
 
 const Root = styled.div`
   display: flex;
-  height: 100%;
-  width: 100%;
+  flex: 1;
   flex-direction: column;
 `;
 

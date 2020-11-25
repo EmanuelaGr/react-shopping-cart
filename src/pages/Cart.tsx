@@ -28,7 +28,7 @@ export default function Cart() {
         </EmptyCartContent>
       )}
       {!visible && (
-        <div>
+        <CardContent>
           <TotalPrice>Total {total.toFixed(2)} kr</TotalPrice>
           <Items>
             {addedProducts.map((product: IProduct) => (
@@ -36,7 +36,7 @@ export default function Cart() {
             ))}
           </Items>
           <Button onClick={clearCart}>CHECKOUT</Button>
-        </div>
+        </CardContent>
       )}
     </Root>
   );
@@ -45,7 +45,14 @@ export default function Cart() {
 const Root = styled.div`
   display: flex;
   flex-direction: column;
-  height: 90vh;
+`;
+
+const CardContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 85%;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 
 const TotalPrice = styled.div`
@@ -67,11 +74,14 @@ const Items = styled.div`
 `;
 
 const Button = styled.button`
-  // display: flex;
   height: 50px;
   width: 200px;
   position: relative;
   float: right;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  margin-bottom: 50px;
 `;
 
 const EmptyCartContent = styled.div`
