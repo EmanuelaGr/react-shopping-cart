@@ -1,7 +1,6 @@
-# Getting Started with Create React App
+# Store project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
+You should see items, add to cart, delete from cart, decrese and increase quantity per item in cart and see total price of the cart. Checkout will delete all items in cart.
 ## Available Scripts
 
 In the project directory, you can run:
