@@ -9,8 +9,7 @@ export default function Cart() {
   const { addedProducts, clearCart, savedLocalStorage } = useStoreContext();
   const visible = addedProducts.length === 0;
 
-  const priceInitialState = JSON.parse(localStorage.getItem("price") || "0");
-  const [total, setTotal] = React.useState(priceInitialState);
+  const [total, setTotal] = React.useState(0);
 
   React.useEffect(() => {
     const total = addedProducts.reduce(
@@ -19,10 +18,6 @@ export default function Cart() {
     );
     setTotal(total);
   }, [addedProducts, savedLocalStorage]);
-
-  if (addedProducts.length > 0) {
-    localStorage.setItem("price", total);
-  } else localStorage.setItem("price", JSON.stringify(0));
 
   return (
     <Root>
