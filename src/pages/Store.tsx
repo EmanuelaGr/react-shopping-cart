@@ -1,23 +1,21 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
 
-import { IProduct } from '../components/Product';
-import { useStoreContext } from '../components/ProductsContex';
-import {StoreItem} from '../components/StoreItem';
+import { IProduct } from "../components/Product";
+import { useStoreContext } from "../components/ProductsContex";
+import { StoreItem } from "../components/StoreItem";
 
-export default  function Store() {
-  const { products} = useStoreContext();
+export default function Store() {
+  const { products } = useStoreContext();
 
   return (
     <Root>
-      {products.map((product: IProduct) => 
+      {products.map((product: IProduct) => (
         <StoreItem key={product.id} item={product}></StoreItem>
-      )
-      }
+      ))}
     </Root>
   );
 }
-
 
 const Root = styled.div`
   display: flex;

@@ -1,52 +1,51 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import { CartItem } from '../components/CartItem';
-import { IProduct } from '../components/Product';
-import { useStoreContext } from '../components/ProductsContex';
-import EmptyCart from '../util/img/emptycart.png';
+import { CartItem } from "../components/CartItem";
+import { IProduct } from "../components/Product";
+import { useStoreContext } from "../components/ProductsContex";
+import EmptyCart from "../util/img/emptycart.png";
 
-export default  function Cart() {
-  const { addedProducts, clearCart, savedLocalStorage} = useStoreContext();
+export default function Cart() {
+  const { addedProducts, clearCart, savedLocalStorage } = useStoreContext();
   const visible = addedProducts.length === 0;
 
   const priceInitialState = JSON.parse(localStorage.getItem("price") || "0");
   const [total, setTotal] = React.useState(priceInitialState);
 
-  React.useEffect( () => {
-    const total = addedProducts.reduce((total:number, product: IProduct) => total + product.price * product.quantity, 0);
+  React.useEffect(() => {
+    const total = addedProducts.reduce(
+      (total: number, product: IProduct) => total + product.price * product.quantity,
+      0
+    );
     setTotal(total);
-  }, [addedProducts, savedLocalStorage])
+  }, [addedProducts, savedLocalStorage]);
 
   if (addedProducts.length > 0) {
-    localStorage.setItem('price', total);
-  }
-  else
-    localStorage.setItem('price', JSON.stringify(0));
+    localStorage.setItem("price", total);
+  } else localStorage.setItem("price", JSON.stringify(0));
 
   return (
     <Root>
-      {visible && 
-      <EmptyCartContent> 
-        <EmptyCartImage src={EmptyCart} alt=""></EmptyCartImage>
-        <span>Your cart is empty.</span>
-      </EmptyCartContent>
-      }
-       {!visible &&  
+      {visible && (
+        <EmptyCartContent>
+          <EmptyCartImage src={EmptyCart} alt=""></EmptyCartImage>
+          <span>Your cart is empty.</span>
+        </EmptyCartContent>
+      )}
+      {!visible && (
         <CartContent>
-        <TotalPrice>Total  {total.toFixed(2)} kr</TotalPrice>
-        <Items>
-        {addedProducts.map((product: IProduct) => 
-          <CartItem key={product.id} item={product} ></CartItem>
-        )
-        }
-        </Items>
+          <TotalPrice>Total {total.toFixed(2)} kr</TotalPrice>
+          <Items>
+            {addedProducts.map((product: IProduct) => (
+              <CartItem key={product.id} item={product}></CartItem>
+            ))}
+          </Items>
           <Button onClick={clearCart}>CHECKOUT</Button>
-      </CartContent>
-      } 
+        </CartContent>
+      )}
     </Root>
   );
 }
-
 
 const Root = styled.div`
   display: flex;
@@ -54,9 +53,7 @@ const Root = styled.div`
   height: 90vh;
 `;
 
-const CartContent = styled.div`
-
-`;
+const CartContent = styled.div``;
 
 const TotalPrice = styled.div`
   height: 40px;
@@ -67,7 +64,6 @@ const TotalPrice = styled.div`
   align-self: center;
   text-align: center;
 `;
-
 
 const Items = styled.div`
   display: flex;
@@ -86,7 +82,7 @@ const Button = styled.button`
 `;
 
 const EmptyCartContent = styled.div`
-  height:300px;
+  height: 300px;
   width: 100%;
   margin-top: 50px;
   display: flex;
@@ -96,8 +92,6 @@ const EmptyCartContent = styled.div`
 `;
 
 const EmptyCartImage = styled.img`
-  height:300px;
+  height: 300px;
   width: 400px;
 `;
-
-
