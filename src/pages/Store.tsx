@@ -23,4 +23,5 @@ const Root = styled.div`
   align-items: center;
   flex-wrap: wrap;
   height: 92vh;
+  margin-bottom: 50px;
 `;

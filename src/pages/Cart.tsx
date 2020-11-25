@@ -50,7 +50,6 @@ const Root = styled.div`
 const CardContent = styled.div`
   display: flex;
   flex-direction: column;
-  min-height: 85%;
   align-items: center;
   justify-content: space-evenly;
 `;
