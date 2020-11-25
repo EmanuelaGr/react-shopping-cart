@@ -31,7 +31,7 @@ const CartItemContent = styled.div`
     display: flex;
     flex-direction: column;
     width: 250px;
-    height: 350px;
+    height: 320px;
     border-radius: 10px;
     background-color: white;
     margin: 20px;

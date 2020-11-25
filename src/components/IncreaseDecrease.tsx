@@ -6,6 +6,11 @@ export interface IIncreaseDecreaseProps {
    item: IProduct;
 }
 
+export enum Action {
+  Increment,
+  Decrement
+} 
+
 export const IncreaseDecrease: React.FC<IIncreaseDecreaseProps> = ( {item }) => {  
     const {saveQuantity } = useStoreContext();
     const [count, setCount] = React.useState(item.quantity);
@@ -13,12 +18,12 @@ export const IncreaseDecrease: React.FC<IIncreaseDecreaseProps> = ( {item }) => 
     const decrementCount = () => {
         if (count > 0)
         setCount(count - 1);
-        saveQuantity(item, count - 1);
+        saveQuantity(item, count - 1, Action.Decrement);
       };
     
       const incrementCount = () => {
         setCount(count + 1);
-        saveQuantity(item, count + 1);
+        saveQuantity(item, count + 1, Action.Increment);
       };
     
     return (

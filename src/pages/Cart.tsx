@@ -6,24 +6,43 @@ import { useStoreContext } from '../components/ProductsContex';
 import EmptyCart from '../util/img/emptycart.png';
 
 export default  function Cart() {
-  const { addedProducts, clearCart} = useStoreContext();
-
+  const { addedProducts, clearCart, savedLocalStorage} = useStoreContext();
   const visible = addedProducts.length === 0;
+
+  const priceInitialState = JSON.parse(localStorage.getItem("price") || "0");
+  const [total, setTotal] = React.useState(priceInitialState);
+
+  React.useEffect( () => {
+    const total = addedProducts.reduce((total:number, product: IProduct) => total + product.price * product.quantity, 0);
+    setTotal(total);
+  }, [addedProducts, savedLocalStorage])
+
+  if (addedProducts.length > 0) {
+    localStorage.setItem('price', total);
+  }
+  else
+    localStorage.setItem('price', JSON.stringify(0));
+
   return (
     <Root>
       {visible && 
       <EmptyCartContent> 
         <EmptyCartImage src={EmptyCart} alt=""></EmptyCartImage>
-        <span>Your card is empty.</span>
+        <span>Your cart is empty.</span>
       </EmptyCartContent>
       }
-      <Items>
-      {addedProducts.map((product: IProduct) => 
-        <CartItem key={product.id} item={product} ></CartItem>
-      )
-      }
-      </Items>
-      {!visible && <Button onClick={clearCart}>CHECKOUT</Button>}
+       {!visible &&  
+        <CartContent>
+        <TotalPrice>Total  {total.toFixed(2)} kr</TotalPrice>
+        <Items>
+        {addedProducts.map((product: IProduct) => 
+          <CartItem key={product.id} item={product} ></CartItem>
+        )
+        }
+        </Items>
+          <Button onClick={clearCart}>CHECKOUT</Button>
+      </CartContent>
+      } 
     </Root>
   );
 }
@@ -35,12 +54,26 @@ const Root = styled.div`
   height: 90vh;
 `;
 
+const CartContent = styled.div`
+
+`;
+
+const TotalPrice = styled.div`
+  height: 40px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: 20px;
+  align-self: center;
+  text-align: center;
+`;
+
+
 const Items = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
-  height: 90%; 
   overflow: sroll;
 `;
 
